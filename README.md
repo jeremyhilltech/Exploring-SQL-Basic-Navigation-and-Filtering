@@ -1,5 +1,5 @@
 <p align="center">
-<a href="https://cdn.pixabay.com/photo/2017/09/28/22/43/database-search-2797375_640.png"><img src="https://cdn.pixabay.com/photo/2017/09/28/22/43/database-search-2797375_640.png" title="tux" /></a>
+<a href="https://cdn.pixabay.com/photo/2013/09/18/12/13/sqlite-183454_640.png"><img src="https://cdn.pixabay.com/photo/2013/09/18/12/13/sqlite-183454_640.png" title="tux" /></a>
 </p>
 
 # Exploring-SQL-Basic-Navigation-and-Filtering
