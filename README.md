@@ -7,7 +7,7 @@ This lab shows navigation within SQL databases using basic commands such as `SEL
 
 ## Context:
 
-This lab is constructed from a learning module in the Google Cybersecurity Professional course. This lab is not intended to be instruction for how to use SQL, but rather a demonstration of basic navigation, queries, and filtering. Database access using a SQLite3 command line was provided via remote access in a browser, and therefore this lab is not easily recreated, as you will not have access to the reference databases in this lab. 
+This lab is constructed from a learning module in the Google Cybersecurity Professional course. This lab is not intended to be instruction for how to use SQL, but rather a demonstration of basic navigation, queries, and filtering. Database access using a SQLite3 command line was provided via remote access in a browser, and therefore this lab is not easily recreated, as you will not have access to the reference databases in this lab. Note also that commands are written in all caps to help with ease of human reading, however it is not required that all caps be used in practice when querying with SQLite. 
 
 ***Work shown here is for demonstration and purposes only.***
 
