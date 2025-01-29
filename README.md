@@ -21,9 +21,9 @@ Your task is to examine the organization’s data in their employees and log_in_
 ---
 ## Retrieve After-hours Login Attempts
 
-You recently discovered a potential security incident that occurred after business hours. To investigate this, you need to query the log_in_attempts table and review after hours login activity. 
+You recently discovered a potential security incident that occurred after business hours. To investigate this, you need to query the `log_in_attempts` table and review after hours login activity. 
 
-We will use filters in SQL to create a query that identifies all failed login attempts that occurred after 18:00. (The time of the login attempt is found in the login_time column. The success column contains a value of 0 when a login attempt failed; you can use either a value of 0 or FALSE in your query to identify failed login attempts.)
+We will use filters in SQL to create a query that identifies all failed login attempts that occurred after 18:00. (The time of the login attempt is found in the `login_time` column. The `success` column contains a value of 0 when a login attempt failed; you can use either a value of 0 or FALSE in your query to identify failed login attempts.)
 
 <a href="https://i.imgur.com/z3yStKG.png"><img src="https://i.imgur.com/z3yStKG.png" title="SQL1.1" /></a>
 
@@ -40,7 +40,7 @@ Lastly, we set a parameter to show only failed login attempts. It's important to
 ---
 ## Retrieve Login Attempts On Specific Dates
 
-A suspicious event occurred on 2022-05-09. To investigate this event, you want to review all login attempts which occurred on this day and the day before. Use filters in SQL to create a query that identifies all login attempts that occurred on 2022-05-09 or 2022-05-08. (The date of the login attempt is found in the login_date column.)
+A suspicious event occurred on 2022-05-09. To investigate this event, you want to review all login attempts which occurred on this day and the day before. Use filters in SQL to create a query that identifies all login attempts that occurred on 2022-05-09 or 2022-05-08. (The date of the login attempt is found in the `login_date` column.)
 
 <a href="https://i.imgur.com/KAjkpSF.png"><img src="https://i.imgur.com/KAjkpSF.png" title="SQL2.1" /></a>
 
@@ -49,48 +49,28 @@ Here we repeat our first steps with `SELECT` and `FROM`.
 Next we modify our `WHERE` command to return data from either of the included dates: `WHERE login_date = '2022-05-09' OR login_date = '2022-05-09';`. Of important note here is that the dates are searched as strings, and the return will bring the data of either day or both days, depending on what data is available. Also of important note is that the column must be specified again after the `OR` filter used, so `login_date` is included twice here. This returns our data successfully, with a total (not seen in this screenshot due to the data produced) of 75 rows of information. 
 
 ---
-## Changing File Permissions
+## Retrieve Login Attempts Made Outside Of Mexico
 
-Now that we understand what we’re looking at, we’re going to change the permissions on one of these files. In order to do this, we’re going to use the `chmod` command, which will require that we first enter which permissions we want to edit, and specify the file or directory in which to implement those changes. Let’s learn how to do that first. 
+There’s been suspicious activity with login attempts, but the team has determined that this activity didn't originate in Mexico. Now, you need to investigate login attempts that occurred outside of Mexico. Use filters in SQL to create a query that identifies all login attempts that occurred outside of Mexico. (When referring to Mexico, the `country` column contains values of both `MEX` and `MEXICO`, and you need to use the `LIKE` keyword with `%` to make sure your query reflects this.)
 
-When using `chmod`, we tie each owner type to an argurment of what to do with their permissions:
+<a href="https://i.imgur.com/9wiLoQj.png"><img src="https://i.imgur.com/9wiLoQj.png" title="SQL3.1" /></a>
 
-`+` adds a permission
+Here we modify our `WHERE` statement again to exclude all entries originating in Mexico. The challenge here is that there are entries on the table for Mexico that use either `MEX` or `MEXICO` in reference to logins from Mexico. 
 
-`-` removes a permission
-
-`=` overwrites all existing permissions with the given permission
-
-Once we have decided how and who to assign our permissions to, we end the command with the specific file or directory to which the permissions will be applied. 
-
-Consider the following example: `chmod g+w,o-r access.txt`
-
-Using `chmod` we must take into consideration that `u` = user, `g` = group, and `o` = others. As you’d expect, it follows that `r` =  read, `w` = write, and `x` = execute. Knowing this, we can deduce that this command is telling `chmod` to give group the write permission, and to remove others from the read permission on the file called `access.txt`. Said more literally, it might read this way: “chmod - group add write, others remove read - on access.txt file.” While this isn’t correct, it gives you an idea of the instruction you’re giving the computer. Please note that for each permission you edit, you *must* insert a comma between each set of changes, and you ***cannot*** put a space after the commas. Now that we understand `chmod`, let’s look at our files again. 
-
-Let’s say that our organization does not allow `others` to have write access to *any* files. If we look closely, we can see that `project_k.txt` is currently configured incorrectly. To fix this, we’ll use the `chmod` command to alter the permissions for `others` on this file. 
-
-<a href="https://imgur.com/ag1Sr7a"><img src="https://i.imgur.com/ag1Sr7a.jpg" title="LC2.1" /></a>
-
-Highlighted we can see that this file does allow `others` to write to the file. Next, we run our `chmod` command and tell it to remove the write permission from `others`: 
-
-`chmod o-w project_k.txt` yields the following result:
-
-<a href="https://imgur.com/p2E6i7h"><img src="https://i.imgur.com/p2E6i7h.jpg" title="source: imgur.com" /></a>
-
-Seen above, we have removed the write permission from `others` on project_k.txt now, and that is reflected by running our `ls -la` command to check the current permissions in the directory. 
+First we use the `NOT` command to exclude the listed data set, and we then call on the `country` dataset to be specifically to be excluded. We then use `LIKE 'MEX%'` to exclude ALL strings that include the letters 'MEX' together. The `LIKE` command is what initiates the search in the strings inside of the `country` column for anything matching the criteria we enter before the `%` symbol. This will exclude data from all entries for Mexico regardless of how they were entered in the database. 
 
 ---
-## Change File Permissions on a Hidden File
+## Retrieve Employees In Marketing
 
-You may have noticed that by using the `ls -la` command to view the files in this directory, we have been listing a file that begins with a `.`. The `-la` argument tells the system to show us all of the files, including hidden ones. Hidden files and directories begin with `.` in the file system. Now let’s say that `.project_x.txt` is an archived file, which is why it’s been hidden from the normal list view. Our company policy is that no one is to have write permissions for archived files, and only `users` and `groups` may have read permissions. Given this, we can see that this hidden file is misconfigured, as it currently allows for `user` and `group` to write to it, however `groups` are not able to read it.
+Your team wants to perform security updates on specific employee machines in the Marketing department. You’re responsible for getting information on these employee machines and will need to query the employees table. Use filters in SQL to create a query that identifies all employees in the Marketing department for all offices in the East building.
 
-<a href="https://imgur.com/UJGLrwQ"><img src="https://i.imgur.com/UJGLrwQ.jpg" title="LC3.1" /></a>
+(The department of the employee is found in the `department` column, which contains values that include `Marketing`. The office is found in the `office` column. Some examples of values in this column are `East-170`, `East-320`, and `North-434`. You’ll need to use the `LIKE` keyword with `%` to filter for the East building.)
 
-Let's change that by running `chmod u-w,g-w,g+r .project_x.txt` and we should see the following:
+<a href="https://i.imgur.com/wMDJl4c.png"><img src="https://i.imgur.com/wMDJl4c.png" title="SQL4.1" /></a>
 
-<a href="https://imgur.com/TKtoIBe"><img src="https://i.imgur.com/TKtoIBe.jpg" title="LC3.2" /></a>
+As seen above, we now use `FROM` to access the `employees` table. 
 
-As you can see, we have now correctly configured .project_x.txt to be readable only by `users` and `groups`. 
+Next we construct our `WHERE` clause with the following: `department = 'Marketing'` tells the query we want only the Marketing department in our results, and `AND office LIKE 'East%';` queries results that only return offices located in the East office of the organization, regardless of office number. 
 
 ---
 ## Change Directory Permissions
