@@ -1,7 +1,7 @@
 # Exploring-SQL-Basic-Navigation-and-Filtering
 
 <p align="center">
-<a href="https://cdn.pixabay.com/photo/2017/09/28/22/43/database-search-2797375_1280.png"><img src="https://cdn.pixabay.com/photo/2017/09/28/22/43/database-search-2797375_1280.png" title="tux" /></a>
+<a href="https://cdn.pixabay.com/photo/2017/09/28/22/43/database-search-2797375_640.png"><img src="https://cdn.pixabay.com/photo/2017/09/28/22/43/database-search-2797375_640.png" title="tux" /></a>
 </p>
 
 # Managing File and Directory Permissions in Linux
