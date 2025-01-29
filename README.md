@@ -64,41 +64,43 @@ First we use the `NOT` command to exclude the listed data set, and we then call 
 
 Your team wants to perform security updates on specific employee machines in the Marketing department. You’re responsible for getting information on these employee machines and will need to query the employees table. Use filters in SQL to create a query that identifies all employees in the Marketing department for all offices in the East building.
 
-(The department of the employee is found in the `department` column, which contains values that include `Marketing`. The office is found in the `office` column. Some examples of values in this column are `East-170`, `East-320`, and `North-434`. You’ll need to use the `LIKE` keyword with `%` to filter for the East building.)
+(The department of the employee is found in the `department` column, which contains values that include `Marketing`. The office is found in the `office` column. Some examples of values in this column are `East-170`, `East-320`, and `North-434`. You’ll need to use the `LIKE` keyword with `%` to filter for the East building.) 
 
 <a href="https://i.imgur.com/wMDJl4c.png"><img src="https://i.imgur.com/wMDJl4c.png" title="SQL4.1" /></a>
 
 As seen above, we now use `FROM` to access the `employees` table. 
 
-Next we construct our `WHERE` clause with the following: `department = 'Marketing'` tells the query we want only the Marketing department in our results, and `AND office LIKE 'East%';` queries results that only return offices located in the East office of the organization, regardless of office number. 
+Next we construct our `WHERE` clause with the following: `department = 'Marketing'` tells the query we want only the Marketing department in our results, and `AND office LIKE 'East%';` queries results that only return offices located in the East office of the organization, regardless of office number. `LIKE` is used to identify patterns. 
 
 ---
-## Change Directory Permissions
+## Retrieve Employees in Finance or Sales
 
-In Linux, it's actually the `x` (execute) permission that allows a given owner the ability to see or access a directory. Let's say that we discover that our `drafts` directory has incorrect permissions enabled. Company policy states that only our user account (`researcher2`) has permission to access this directory. Our permissions tell us that currently, `groups` are also able to access this directory:
+Your team now needs to perform a different security update on machines for employees in the Sales and Finance departments. Use filters in SQL to create a query that identifies all employees in the Sales or Finance departments. (The department of the employee is found in the department column, which contains values that include Sales and Finance.)
 
-<a href="https://imgur.com/2PAKxHe"><img src="https://i.imgur.com/2PAKxHe.jpg" title="LC4.1" /></a>
+<a href="https://i.imgur.com/EFQHjSO.png"><img src="https://i.imgur.com/EFQHjSO.png" title="SQL5.1" /></a>
 
-In order to correct this, we have to do two things. First, we have to make sure that we are currently in the parent directory to `drafts`, in this case the `projects` directory. (Use `cd` to navigate to `projects` if needed.)
+By now we're getting the hang of using these filters. 
 
-From there we can run `chmod g-x drafts` to remove `group` access to the drafts directory:
+Now we modify our `WHERE` clause to focus only on `Finance` or `Sales` using the `departments` column. -> `WHERE department = 'Finance' OR department = 'Sales';`
 
-<a href="https://imgur.com/erNn46N"><img src="https://i.imgur.com/erNn46N.jpg" title="LC4.2" /></a>
+---
+## Retrieve All Employees Not In IT
 
-And we can now confirm that `researcher2` is the only user allowed to access the `drafts` directory now, in compliance with company policy. 
+Your team needs to make one more update to employee machines. The employees who are in the Information Technology department already had this update, but employees in all other departments need it. Use filters in SQL to create a query which identifies all employees not in the IT department. (The department of the employee is found in the department column, which contains values that include Information Technology.)
+
+<a href="https://i.imgur.com/BB31bBR.png"><img src="https://i.imgur.com/BB31bBR.png" title="SQL6.1" /></a>
+
+By now we're getting the hang of using these filters. 
+
+Now we modify our `WHERE` clause to exclude anyone in the IT department since their computers have already received the needed updates. `WHERE NOT department = 'Information Technology';` yields us all of the computers minus those in IT that we can push updates to. 
 
 ---
 ## Summary
 
-In completing this lab we have learned how to identify ourselves on a linux command line, navigate to a target directory and confirm our location, and list all of the files and directories we want to see, including hidden files. We've configured the permissions on these files and directories in accordance with company policy and reduced our attack surface in doing so. Only those owners who require access to these files now have access, and unnecessary permissions have been revoked where needed. In essense, we've strengthened one of the essential parts of the CIA Triad in our organization, namely Confidentiality. This is why regular audits are important; we must confirm that we aren't leaving holes in our attack surface to both internal and external threats. The Principle of Least Privilege requires that we only give permissions where absolutely necessary for employees to do their jobs, and of course to keep all unauthorized connections from outside the organzation from accessing our data. 
+In completing this lab we have learned how to query and filter results in SQL databases using the SQLite command line. We used commands such as `SELECT`, `FROM`, `WHERE`, `NOT`, `AND`, `LIKE`, `OR`, and `%`. These tools allowed us to search for both inclusive and exclusive results and patterns within our data, helping us easily search suspicious login attempts on our networks, and identify information needed for efficient and effective decision making and resource management within our organization. 
 
 ---
-## Commands Used in this Lab:
-* `whoami` = tells you what user you are currently operating as in the system
-* `ls` = list all items in the working directory, argument `-l` shows permissions, argument `-la` shows permissions and hidden files. 
-* `pwd` = print the working directory
-* `cd` = change directory
-* `chmod` = (change mode) = changes file/directory permissions for users, groups, and others
+
 
 
 
