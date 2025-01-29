@@ -28,9 +28,13 @@ We will use filters in SQL to create a query that identifies all failed login at
 <a href="https://i.imgur.com/z3yStKG.png"><img src="https://i.imgur.com/z3yStKG.png" title="SQL1.1" /></a>
 
 Here we have used `SELECT *` to query the database for all available informtion. 
+
 We then use `FROM` to direct the query to the correct table, in this case `log_in_attempts`. 
+
 Next, we specify the parameters of our query with the `WHERE` command, and include where we want to pull the information from (`login_time`).
+
 We know we're looking for the login attempts after 6PM, so we use the `>` operator, and then specify said time as a string to be searched. (`18:00`).
+
 Lastly, we set a parameter to show only failed login attempts. It's important to note here that SQL uses boolean values here, meaning that numerical output of 1 = TRUE, and 2 = FALSE. This also means that since we are working with boolean values that we will ***not*** use `''` marks around the values to be searched, as boolean values are not strings, and will return an error if we attempt to search them that way. 
 
 ---
