@@ -38,38 +38,15 @@ We know we're looking for the login attempts after 6PM, so we use the `>` operat
 Lastly, we set a parameter to show only failed login attempts. It's important to note here that SQL uses boolean values here, meaning that numerical output of 1 = TRUE, and 2 = FALSE. This also means that since we are working with boolean values that we will ***not*** use `''` marks around the values to be searched, as boolean values are not strings, and will return an error if we attempt to search them that way. 
 
 ---
-## The Permissions String
+## Retrieve Login Attempts On Specific Dates
 
-In the above image note that there is a series of 10 character strings that begin each line. These are permission strings, and they tell us what permissions are enabled on the given file or directory, as well as who has been given these levels of access. 
+A suspicious event occurred on 2022-05-09. To investigate this event, you want to review all login attempts which occurred on this day and the day before. Use filters in SQL to create a query that identifies all login attempts that occurred on 2022-05-09 or 2022-05-08. (The date of the login attempt is found in the login_date column.)
 
-In this section, we’ll first discuss the possible characters and what each means. Next we'll discuss the types of owners of files in linux, and then we will tie that into the permissions string so we can use it as a tool to understand what the permissions are on files and directories. 
+<a href="https://i.imgur.com/KAjkpSF.png"><img src="https://i.imgur.com/KAjkpSF.png" title="SQL2.1" /></a>
 
-As you may note on observation, each string consists of a series of letters or hyphens. The characters used are as follows:
+Here we repeat our first steps with `SELECT` and `FROM`. 
 
-* A `d` at the beginning of a string represents the permissions for a directory
-* A `-` (hyphen) at the beginning of a string represents the permissions for a file. If located within the string, the hyphen means that the permission has been revoked. 
-* An `r` means that `read` permissions are granted. 
-* A `w` means that `write` permissions are granted.
-* An `x` means that `execute` permissions are granted. 
-
-Next let’s observe that there are three types of owners in Linux:
-
-* `user` - the owner or creator of the file. 
-* `group` - every user is part of some type of group. 
-* `other` - this is considered to be all other users on the system. 
-
-From here we tie all of this information to the string itself. A useful way of conceptualizing permission strings is to think of them as 1 + 3 + 3 + 3. In this case, the first character represents whether we are talking about a directory or file (`d` or `-` respectively), and the rest are “triplets” which pertain to one of three types of owners, that is `users`, `groups`, and `others`. In other words, characters 2-4 denote `user` permissions, 5-7 denote `group` permissions, and 8-10 denote `other` permissions.
-
-If all permissions were enabled for everyone, that would end up looking like: `-rwxrwxrwx`
-
-Please note that this is an example of what is known as "global permissions" and is a critical security risk. 
-
-In the example `-rwxrwxrwx`, the hyphen in position 1 tells us we’re working with the permissions of a file. The first “triplet” of characters represent `user` permissions, the second triplet represents `group` permissions, and the last triplet represents `other` permissions. Now let’s take a look at our results again: 
-
-<a href="https://imgur.com/rdtmKvG"><img src="https://i.imgur.com/rdtmKvG.jpg" title="LC1.2" /></a>
-
-If we take a look at the `drafts` directory, we see the permissions: `drwx--x---`
-Read from left to right, we confirm we’re working with a directory (`d`). We can see that `users` have read, write, and execute privileges, `group`s only have execute privileges, and `others` have no privileges. 
+Next we modify our `WHERE` command to return data from either of the included dates: `WHERE login_date = '2022-05-09' OR login_date = '2022-05-09';`. Of important note here is that the dates are searched as strings, and the return will bring the data of either day or both days, depending on what data is available. Also of important note is that the column must be specified again after the `OR` filter used, so `login_date` is included twice here. This returns our data successfully, with a total (not seen in this screenshot due to the data produced) of 75 rows of information. 
 
 ---
 ## Changing File Permissions
