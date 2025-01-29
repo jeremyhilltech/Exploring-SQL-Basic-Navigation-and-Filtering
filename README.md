@@ -2,7 +2,7 @@
 <a href="https://cdn.pixabay.com/photo/2013/09/18/12/13/sqlite-183454_640.png"><img src="https://cdn.pixabay.com/photo/2013/09/18/12/13/sqlite-183454_640.png" title="tux" /></a>
 </p>
 
-# Exploring-SQL-Basic-Navigation-and-Filtering
+# Using SQLite For Basic Navigation And Filtering Of SQL Databases
 This lab shows navigation within SQL databases using basic commands such as `SELECT`, `FROM`, `WHERE`, `AND`, `OR`, `NOT`, and more to retrieve information using a SQlite3 command line. 
 
 ## Context:
