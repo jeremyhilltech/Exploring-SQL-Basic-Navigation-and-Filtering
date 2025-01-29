@@ -1,33 +1,37 @@
-# Exploring-SQL-Basic-Navigation-and-Filtering
-
 <p align="center">
 <a href="https://cdn.pixabay.com/photo/2017/09/28/22/43/database-search-2797375_640.png"><img src="https://cdn.pixabay.com/photo/2017/09/28/22/43/database-search-2797375_640.png" title="tux" /></a>
 </p>
 
-# Managing File and Directory Permissions in Linux
-This lab serves as an exploration of permissions on directories and files within Linux. We will check permissions to ensure that each is properly configured for their respective `user`, `group`, or `other` owners. The point here is to get a taste of the Principle of Least Privilege, which states that only the minimum amount of access for files and directories should be granted for the completion of necessary tasks related to the use of the data. 
+# Exploring-SQL-Basic-Navigation-and-Filtering
+This lab shows navigation within SQL databases using basic commands such as `SELECT`, `FROM`, `WHERE`, `AND`, `OR`, `NOT`, and more to retrieve information using a SQlite3 command line. 
 
 ## Context:
 
-This lab is constructed from a learning module in the Google Cybersecurity Professional course. The shell was provided via remote access in a browser, and therefore this lab is not easily recreated, as your system will not have some of the files and directories shown below. Work shown here is for demonstration and educational purposes only. 
+This lab is constructed from a learning module in the Google Cybersecurity Professional course. This lab is not intended to be instruction for how to use SQL, but rather a demonstration of basic navigation, queries, and filtering. Database access using a SQLite3 command line was provided via remote access in a browser, and therefore this lab is not easily recreated, as you will not have access to the reference databases in this lab. 
 
-For a list of commands used in this lab, please see the end of the lab. For more information on these commands and their options, please refer to the 'man' page for each of them inside your linux bash shell. Some items in this lab are highlighted as inline code for ease of reading and understanding the text even though `not everything written that way is actually a code or command`. Screenshots are provided which show all actual commands being used. 
+***Work shown here is for demonstration and purposes only.***
+
+When using SQlite, you can find instructions on all special commands by typing `.help` in the command line. 
 
 ## Scenario:
-You are a security professional at a large organization. You mainly work with their research team. Part of your job is to ensure users on this team are authorized with the appropriate permissions. This helps keep the system secure. Your task is to examine existing permissions on the file system. You’ll need to determine if the permissions match the authorization that should be given. If they do not match, you’ll need to modify the permissions to authorize the appropriate users and remove any unauthorized access.
+You are a security professional at a large organization. Part of your job is to investigate security issues to help keep the system secure. You recently discovered some potential security issues that involve login attempts and employee machines.
+
+Your task is to examine the organization’s data in their employees and log_in_attempts tables. You’ll need to use SQL filters to retrieve records from different datasets and investigate the potential security issues.
 
 ---
-## Check File and Directory Details
+## Retrieve After-hours Login Attempts
 
-<a href="https://imgur.com/8s6z6U2"><img src="https://i.imgur.com/8s6z6U2.jpg" title="LC1.1" /></a>
+You recently discovered a potential security incident that occurred after business hours. To investigate this, you need to query the log_in_attempts table and review after hours login activity. 
 
-1. We begin by establishing who we are using the `whoami` command, which returns that we are `researcher2`. 
-2. Next we need to know where we are, so we use the `pwd` command, which returns our working directory as `/home/researcher2`. 
-3. We will be working in the projects directory, which we locate using the `ls -a` command to confirm its presence from our current working directory. 
-4. We then use the `cd projects` command to drop into that location. 
-5. Our instructions are to enumerate all of the files and directories within the projects directory and investigate permissions on several files. Here we see the returned information from the system using the `ls -la` command in order to include any hidden files in our current working directory. Below is the result, where we can see all permissions. 
+We will use filters in SQL to create a query that identifies all failed login attempts that occurred after 18:00. (The time of the login attempt is found in the login_time column. The success column contains a value of 0 when a login attempt failed; you can use either a value of 0 or FALSE in your query to identify failed login attempts.)
 
-<a href="https://imgur.com/1Valzqd"><img src="https://i.imgur.com/1Valzqd.jpg" title="LC1.2" /></a>
+<a href="https://i.imgur.com/z3yStKG.png"><img src="https://i.imgur.com/z3yStKG.png" title="SQL1.1" /></a>
+
+Here we have used `SELECT *` to query the database for all available informtion. 
+We then use `FROM` to direct the query to the correct table, in this case `log_in_attempts`. 
+Next, we specify the parameters of our query with the `WHERE` command, and include where we want to pull the information from (`login_time`).
+We know we're looking for the login attempts after 6PM, so we use the `>` operator, and then specify said time as a string to be searched. (`18:00`).
+Lastly, we set a parameter to show only failed login attempts. It's important to note here that SQL uses boolean values here, meaning that numerical output of 1 = TRUE, and 2 = FALSE. This also means that since we are working with boolean values that we will ***not*** use `''` marks around the values to be searched, as boolean values are not strings, and will return an error if we attempt to search them that way. 
 
 ---
 ## The Permissions String
